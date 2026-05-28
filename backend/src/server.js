@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import emailRoutes from './routes/emailRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -29,6 +30,7 @@ app.use('/uploads', express.static(uploadsDir));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/emails', emailRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'API is running' });
