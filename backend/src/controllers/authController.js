@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import User from '../models/User.js';
 import { generateToken } from '../middleware/auth.js';
 import nodemailer from 'nodemailer';
+import { validationResult } from 'express-validator';
 
 const sendResetEmail = async (user, resetToken) => {
   const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
@@ -41,7 +42,16 @@ const sendResetEmail = async (user, resetToken) => {
 
 export const register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: errors.array()[0].msg
+      });
+    }
+
+    const email = req.body.email.trim().toLowerCase();
+    const { password } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -186,7 +196,16 @@ export const updateProfile = async (req, res) => {
 
     const user = await User.findById(req.user.id);
 
-    if (senderEmail) user.senderEmail = senderEmail;
+    if (senderEmail) {
+      const normalizedSenderEmail = senderEmail.trim().toLowerCase();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedSenderEmail)) {
+        return res.status(400).json({
+          success: false,
+          message: 'Please enter a valid sender email'
+        });
+      }
+      user.senderEmail = normalizedSenderEmail;
+    }
     if (appPasskey) user.appPasskey = appPasskey;
 
     await user.save();
