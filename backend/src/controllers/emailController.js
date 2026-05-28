@@ -3,9 +3,20 @@ import User from '../models/User.js';
 import Email from '../models/Email.js';
 import nodemailer from 'nodemailer';
 
+const stripHtml = (value) => {
+  return value
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+};
+
 export const sendEmail = async (req, res) => {
   try {
-    const { recipientEmail, subject, body } = req.body;
+    const recipientEmail = req.body.recipientEmail?.trim().toLowerCase();
+    const subject = req.body.subject?.trim();
+    const { body } = req.body;
     const attachment = req.file;
 
     const user = await User.findById(req.user.id).select('+appPasskey');
@@ -19,11 +30,13 @@ export const sendEmail = async (req, res) => {
 
     const trackingId = uuidv4();
     const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000';
-    const trackingPixel = `<img src="${backendUrl}/api/emails/track/${trackingId}" width="1" height="1" style="display:none" />`;
+    const trackingPixel = `<img src="${backendUrl}/api/emails/track/${trackingId}.gif" width="1" height="1" alt="" border="0" style="width:1px;height:1px;border:0;outline:none;text-decoration:none;opacity:0;" />`;
 
     const htmlBody = body.includes('<html')
       ? body.replace('</body>', `${trackingPixel}</body>`)
-      : `<html><body>${body}${trackingPixel}</body></html>`;
+      : `<!doctype html><html><body style="margin:0;padding:0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#111827;">${body}${trackingPixel}</body></html>`;
+
+    const textBody = stripHtml(body);
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -36,10 +49,15 @@ export const sendEmail = async (req, res) => {
     });
 
     const mailOptions = {
-      from: user.senderEmail,
+      from: `"EmailTracker" <${user.senderEmail}>`,
       to: recipientEmail,
-      subject: subject,
-      html: htmlBody
+      replyTo: user.senderEmail,
+      subject,
+      text: textBody,
+      html: htmlBody,
+      headers: {
+        'X-Auto-Response-Suppress': 'All'
+      }
     };
 
     if (attachment) {
@@ -121,7 +139,7 @@ export const getEmailById = async (req, res) => {
 
 export const trackEmail = async (req, res) => {
   try {
-    const { trackingId } = req.params;
+    const trackingId = req.params.trackingId.replace(/\.gif$/i, '');
 
     const email = await Email.findOne({ trackingId });
 
