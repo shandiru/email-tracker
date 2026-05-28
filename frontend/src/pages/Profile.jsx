@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 
+const passkeyGuideUrl = 'https://www.youtube.com/embed/JremHKp4i1U';
+
 const Profile = () => {
   const { user, updateProfile } = useAuth();
   const [senderEmail, setSenderEmail] = useState('');
@@ -103,13 +105,24 @@ const Profile = () => {
                   <p className="field-help">Use your email provider app password.</p>
                 </div>
                 <div className="form-control">
-                <input
-                  type="password"
-                  className="input-field"
-                  placeholder="Enter app password"
-                  value={appPasskey}
-                  onChange={(e) => setAppPasskey(e.target.value)}
-                />
+                  <input
+                    type="password"
+                    className="input-field"
+                    placeholder="Enter app password"
+                    value={appPasskey}
+                    onChange={(e) => setAppPasskey(e.target.value)}
+                  />
+                  <div className="mt-4 overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
+                    <div className="aspect-video">
+                      <iframe
+                        className="h-full w-full"
+                        src={passkeyGuideUrl}
+                        title="How to get an email app passkey"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
