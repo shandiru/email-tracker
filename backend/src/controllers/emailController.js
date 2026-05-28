@@ -63,7 +63,8 @@ export const sendEmail = async (req, res) => {
     if (attachment) {
       mailOptions.attachments = [{
         filename: attachment.originalname,
-        path: attachment.path
+        content: attachment.buffer,
+        contentType: attachment.mimetype
       }];
     }
 
@@ -76,8 +77,8 @@ export const sendEmail = async (req, res) => {
       body: htmlBody,
       attachment: attachment ? {
         filename: attachment.originalname,
-        path: attachment.path,
-        contentType: attachment.mimetype
+        contentType: attachment.mimetype,
+        size: attachment.size
       } : null,
       trackingId,
       sentAt: new Date()

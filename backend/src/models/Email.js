@@ -23,7 +23,8 @@ const emailSchema = new mongoose.Schema({
   attachment: {
     filename: String,
     path: String,
-    contentType: String
+    contentType: String,
+    size: Number
   },
   status: {
     type: String,
