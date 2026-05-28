@@ -97,13 +97,8 @@ const Dashboard = () => {
             <span />
           </div>
           <div className="min-w-0 flex-1">
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <p className="text-sm font-semibold text-slate-950">Email opened</p>
-                <p className="mt-1 truncate text-sm text-slate-600">
-                  {notification.subject}
-                </p>
-              </div>
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-sm font-semibold text-slate-950">Opened now</p>
               <button
                 type="button"
                 className="toast-close"
@@ -113,11 +108,14 @@ const Dashboard = () => {
                 x
               </button>
             </div>
-            <p className="mt-2 truncate text-xs font-medium text-slate-500">
+            <p className="mt-1 truncate text-sm text-slate-700">
+              {notification.subject}
+            </p>
+            <p className="mt-1 truncate text-xs text-slate-500">
               {notification.recipient}
             </p>
             <p className="mt-1 text-xs text-slate-400">
-              Opened {notification.openCount} time{notification.openCount > 1 ? 's' : ''} - {formatDate(notification.openedAt)}
+              {notification.openCount} open{notification.openCount > 1 ? 's' : ''} - {formatDate(notification.openedAt)}
             </p>
           </div>
           <div className="toast-progress" />

@@ -25,9 +25,7 @@ const Navbar = () => {
         <div className="flex min-h-16 flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:py-0">
           <div className="flex flex-wrap items-center gap-5">
             <Link to="/dashboard" className="flex shrink-0 items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-md bg-slate-950 text-sm font-bold text-white">
-                ET
-              </span>
+              <span className="brand-mail-icon" aria-hidden="true" />
               <span className="text-lg font-bold text-slate-950">EmailTracker</span>
             </Link>
             <div className="flex items-center gap-2">

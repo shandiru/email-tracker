@@ -67,7 +67,7 @@ const VerifyEmail = () => {
     <div className="auth-screen">
       <div className="auth-card">
         <div>
-          <div className="auth-brand">ET</div>
+          <div className="auth-brand brand-mail-icon" aria-hidden="true" />
           <p className="eyebrow text-center">Email verification</p>
           <h2 className="mt-2 text-center text-3xl font-bold text-slate-950">
             Verify your email
