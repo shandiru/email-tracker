@@ -12,6 +12,41 @@ const stripHtml = (value) => {
     .trim();
 };
 
+const escapeHtml = (value) => {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+};
+
+const addTrackingPixel = (html, trackingPixel) => {
+  if (/<\/body>/i.test(html)) {
+    return html.replace(/<\/body>/i, `${trackingPixel}</body>`);
+  }
+
+  return `${html}${trackingPixel}`;
+};
+
+const createEmailHtml = (body, trackingPixel) => {
+  if (/<html[\s>]/i.test(body)) {
+    return addTrackingPixel(body, trackingPixel);
+  }
+
+  const escapedBody = escapeHtml(body);
+
+  return `<!doctype html>
+<html>
+  <body style="margin:0;padding:0;background:#ffffff;font-family:Arial,sans-serif;color:#111827;">
+    <div style="max-width:720px;margin:0;padding:24px 16px;font-size:15px;line-height:1.7;white-space:pre-wrap;word-break:break-word;">
+${escapedBody}
+    </div>
+    ${trackingPixel}
+  </body>
+</html>`;
+};
+
 export const sendEmail = async (req, res) => {
   try {
     const recipientEmail = req.body.recipientEmail?.trim().toLowerCase();
@@ -32,11 +67,8 @@ export const sendEmail = async (req, res) => {
     const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000';
     const trackingPixel = `<img src="${backendUrl}/api/emails/track/${trackingId}.gif" width="1" height="1" alt="" border="0" style="width:1px;height:1px;border:0;outline:none;text-decoration:none;opacity:0;" />`;
 
-    const htmlBody = body.includes('<html')
-      ? body.replace('</body>', `${trackingPixel}</body>`)
-      : `<!doctype html><html><body style="margin:0;padding:0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#111827;">${body}${trackingPixel}</body></html>`;
-
-    const textBody = stripHtml(body);
+    const htmlBody = createEmailHtml(body, trackingPixel);
+    const textBody = /<html[\s>]/i.test(body) ? stripHtml(body) : body.trim();
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
