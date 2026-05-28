@@ -29,7 +29,7 @@ const ForgotPassword = () => {
       <div className="auth-card">
         <div>
           <div className="auth-brand">ET</div>
-          <p className="eyebrow text-center">Account recovery</p>
+          <p className="eyebrow text-center">Account security</p>
           <h2 className="mt-2 text-center text-3xl font-bold text-slate-950">
             Reset your password
           </h2>

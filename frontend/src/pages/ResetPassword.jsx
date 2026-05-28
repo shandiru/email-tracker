@@ -43,7 +43,7 @@ const ResetPassword = () => {
       <div className="auth-card">
         <div>
           <div className="auth-brand">ET</div>
-          <p className="eyebrow text-center">Secure reset</p>
+          <p className="eyebrow text-center">Account security</p>
           <h2 className="mt-2 text-center text-3xl font-bold text-slate-950">
             Set new password
           </h2>

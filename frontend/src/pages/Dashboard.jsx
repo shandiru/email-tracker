@@ -53,11 +53,11 @@ const Dashboard = () => {
           <p className="stat-label">Sent emails</p>
           <p className="stat-value">{emails.length}</p>
         </div>
-        <div className="stat-card">
+        <div className="stat-card border-l-4 border-l-emerald-500">
           <p className="stat-label">Opened</p>
           <p className="stat-value">{openedCount}</p>
         </div>
-        <div className="stat-card">
+        <div className="stat-card border-l-4 border-l-slate-900">
           <p className="stat-label">Total opens</p>
           <p className="stat-value">{totalOpens}</p>
         </div>
@@ -108,7 +108,7 @@ const Dashboard = () => {
               </thead>
               <tbody className="divide-y divide-slate-100 bg-white">
                 {emails.map((email) => (
-                  <tr key={email._id} className="transition hover:bg-blue-50/50">
+                  <tr key={email._id} className="transition hover:bg-slate-50">
                     <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-slate-900">
                       {email.recipientEmail}
                     </td>

@@ -42,7 +42,7 @@ const Register = () => {
       <div className="auth-card">
         <div>
           <div className="auth-brand">ET</div>
-          <p className="eyebrow text-center">Start tracking</p>
+          <p className="eyebrow text-center">EmailTracker</p>
           <h2 className="mt-2 text-center text-3xl font-bold text-slate-950">
             Create your account
           </h2>
