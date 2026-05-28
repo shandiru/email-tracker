@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 
@@ -6,19 +6,78 @@ const Dashboard = () => {
   const [emails, setEmails] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState(null);
+  const openCountsRef = useRef({});
+  const hasLoadedRef = useRef(false);
+  const searchRef = useRef(search);
 
   useEffect(() => {
+    searchRef.current = search;
     fetchEmails();
   }, [search]);
 
-  const fetchEmails = async () => {
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchEmails({ silent: true });
+    }, 8000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    if (!notification) return undefined;
+
+    const timeoutId = setTimeout(() => {
+      setNotification(null);
+    }, 6000);
+
+    return () => clearTimeout(timeoutId);
+  }, [notification]);
+
+  const detectNewOpens = (nextEmails) => {
+    const nextOpenCounts = {};
+    const newlyOpened = [];
+
+    nextEmails.forEach((email) => {
+      const previousCount = openCountsRef.current[email._id] ?? 0;
+      const currentCount = email.openCount || 0;
+
+      nextOpenCounts[email._id] = currentCount;
+
+      if (hasLoadedRef.current && currentCount > previousCount) {
+        newlyOpened.push(email);
+      }
+    });
+
+    openCountsRef.current = nextOpenCounts;
+    hasLoadedRef.current = true;
+
+    if (newlyOpened.length > 0) {
+      const latestEmail = newlyOpened.sort((a, b) => {
+        return new Date(b.lastOpenedAt || 0) - new Date(a.lastOpenedAt || 0);
+      })[0];
+
+      setNotification({
+        subject: latestEmail.subject,
+        recipient: latestEmail.recipientEmail,
+        openCount: latestEmail.openCount || 1,
+        openedAt: latestEmail.lastOpenedAt
+      });
+    }
+  };
+
+  const fetchEmails = async ({ silent = false } = {}) => {
     try {
-      const response = await api.get(`/emails?search=${search}`);
-      setEmails(response.data.emails);
+      const response = await api.get(`/emails?search=${searchRef.current}`);
+      const nextEmails = response.data.emails;
+      detectNewOpens(nextEmails);
+      setEmails(nextEmails);
     } catch (error) {
       console.error('Failed to fetch emails:', error);
     } finally {
-      setLoading(false);
+      if (!silent) {
+        setLoading(false);
+      }
     }
   };
 
@@ -32,6 +91,30 @@ const Dashboard = () => {
 
   return (
     <main className="app-shell">
+      {notification && (
+        <div className="open-toast" role="status" aria-live="polite">
+          <div className="open-toast-icon" aria-hidden="true">
+            <span />
+          </div>
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-slate-950">Email opened</p>
+            <p className="mt-0.5 truncate text-sm text-slate-600">
+              {notification.subject} by {notification.recipient}
+            </p>
+            <p className="mt-1 text-xs text-slate-500">
+              Opened {notification.openCount} time{notification.openCount > 1 ? 's' : ''} · {formatDate(notification.openedAt)}
+            </p>
+          </div>
+          <button
+            type="button"
+            className="ml-2 rounded-md px-2 py-1 text-sm font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-950"
+            onClick={() => setNotification(null)}
+            aria-label="Dismiss notification"
+          >
+            x
+          </button>
+        </div>
+      )}
       <div className="page-container">
       <div className="page-header">
         <div>

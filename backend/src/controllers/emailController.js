@@ -144,7 +144,9 @@ export const trackEmail = async (req, res) => {
     res.set({
       'Content-Type': 'image/gif',
       'Content-Length': transparentGif.length,
-      'Cache-Control': 'no-cache, no-store, must-revalidate'
+      'Cache-Control': 'no-cache, no-store, must-revalidate, proxy-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
     });
 
     res.send(transparentGif);

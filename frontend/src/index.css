@@ -211,6 +211,42 @@
   .empty-mail-icon {
     @apply mx-auto mb-4 flex h-14 w-16 items-center justify-center rounded-md border-2 border-slate-300 bg-slate-50;
   }
+
+  .open-toast {
+    @apply fixed right-4 top-20 z-50 flex w-[calc(100%-2rem)] max-w-sm items-start gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-lg shadow-slate-200/70 sm:right-6;
+    animation: toastIn 180ms ease-out;
+  }
+
+  .open-toast-icon {
+    @apply mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-emerald-50 text-emerald-700;
+  }
+
+  .open-toast-icon span {
+    @apply block h-5 w-7 rounded-sm border-2 border-emerald-600 bg-white;
+    position: relative;
+  }
+
+  .open-toast-icon span::before,
+  .open-toast-icon span::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    width: 15px;
+    height: 2px;
+    background: #059669;
+  }
+
+  .open-toast-icon span::before {
+    left: 0;
+    transform: rotate(30deg);
+    transform-origin: left center;
+  }
+
+  .open-toast-icon span::after {
+    right: 0;
+    transform: rotate(-30deg);
+    transform-origin: right center;
+  }
 }
 
 @keyframes mailFloat {
@@ -221,5 +257,17 @@
 
   50% {
     transform: translateY(-6px);
+  }
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
