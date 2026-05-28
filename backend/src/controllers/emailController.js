@@ -19,7 +19,7 @@ export const sendEmail = async (req, res) => {
 
     const trackingId = uuidv4();
     const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000';
-    const trackingPixel = `<img src="${backendUrl}/api/emails/track/${trackingId}" width="1" height="1"  />`;
+    const trackingPixel = `<img src="${backendUrl}/api/emails/track/${trackingId}" width="1" height="1" style="display:none" />`;
 
     const htmlBody = body.includes('<html')
       ? body.replace('</body>', `${trackingPixel}</body>`)
