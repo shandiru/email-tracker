@@ -49,7 +49,7 @@ export const sendEmail = async (req, res) => {
     });
 
     const mailOptions = {
-      from: `"EmailTracker" <${user.senderEmail}>`,
+      from: user.senderEmail,
       to: recipientEmail,
       replyTo: user.senderEmail,
       subject,
