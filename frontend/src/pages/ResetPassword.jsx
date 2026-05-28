@@ -1,18 +1,32 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
 const ResetPassword = () => {
+  const location = useLocation();
+  const [email, setEmail] = useState(location.state?.email || '');
+  const [otp, setOtp] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { token } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
+    if (!/^\d{6}$/.test(otp)) {
+      setError('Please enter the 6 digit OTP');
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError('Passwords do not match');
@@ -27,7 +41,11 @@ const ResetPassword = () => {
     setLoading(true);
 
     try {
-      const response = await api.post(`/auth/reset-password/${token}`, { password });
+      const response = await api.post('/auth/reset-password', {
+        email: normalizedEmail,
+        otp,
+        password
+      });
       localStorage.setItem('token', response.data.token);
       api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
       navigate('/dashboard');
@@ -47,6 +65,9 @@ const ResetPassword = () => {
           <h2 className="mt-2 text-center text-3xl font-bold text-slate-950">
             Set new password
           </h2>
+          <p className="mt-2 text-center text-sm text-slate-500">
+            Enter the OTP sent to your email.
+          </p>
         </div>
         <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
           {error && (
@@ -55,6 +76,28 @@ const ResetPassword = () => {
             </div>
           )}
           <div className="space-y-4">
+            <div>
+              <input
+                type="email"
+                required
+                className="input-field"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value.trimStart())}
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                inputMode="numeric"
+                maxLength={6}
+                required
+                className="input-field text-center text-lg font-semibold tracking-[0.35em]"
+                placeholder="000000"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+              />
+            </div>
             <div>
               <input
                 type="password"

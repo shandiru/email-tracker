@@ -38,7 +38,7 @@ const Register = () => {
 
     try {
       await register(normalizedEmail, password);
-      navigate('/dashboard');
+      navigate('/verify-email', { state: { email: normalizedEmail } });
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
     } finally {

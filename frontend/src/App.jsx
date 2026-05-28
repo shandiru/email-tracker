@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import VerifyEmail from './pages/VerifyEmail';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
@@ -36,11 +37,19 @@ const AppRoutes = () => {
           element={user ? <Navigate to="/dashboard" /> : <Register />}
         />
         <Route
+          path="/verify-email"
+          element={user ? <Navigate to="/dashboard" /> : <VerifyEmail />}
+        />
+        <Route
           path="/forgot-password"
           element={user ? <Navigate to="/dashboard" /> : <ForgotPassword />}
         />
         <Route
           path="/reset-password/:token"
+          element={user ? <Navigate to="/dashboard" /> : <ResetPassword />}
+        />
+        <Route
+          path="/reset-password"
           element={user ? <Navigate to="/dashboard" /> : <ResetPassword />}
         />
         <Route

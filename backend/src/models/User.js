@@ -26,7 +26,19 @@ const userSchema = new mongoose.Schema({
     select: false,
     default: ''
   },
-  resetPasswordToken: String,
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
+  verificationOtp: {
+    type: String,
+    select: false
+  },
+  verificationOtpExpire: Date,
+  resetPasswordOtp: {
+    type: String,
+    select: false
+  },
   resetPasswordExpire: Date
 }, {
   timestamps: true
@@ -34,7 +46,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) {
-    next();
+    return next();
   }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
