@@ -36,7 +36,7 @@ const createEmailHtml = (body, trackingPixel) => {
 
   const escapedBody = escapeHtml(body);
 
-  return `<!doctype html>
+  return `<!doctype html
 <html>
   <body style="margin:0;padding:0;background:#ffffff;font-family:Arial,sans-serif;color:#111827;">
     <div style="max-width:720px;margin:0;padding:24px 16px;font-size:15px;line-height:1.7;white-space:pre-wrap;word-break:break-word;">
