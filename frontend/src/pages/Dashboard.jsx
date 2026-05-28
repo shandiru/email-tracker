@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import api from '../services/api';
 
 const Dashboard = () => {
   const [emails, setEmails] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchEmails();
@@ -75,9 +74,16 @@ const Dashboard = () => {
 
       <div className="table-shell">
         {loading ? (
-          <div className="p-10 text-center text-sm font-medium text-slate-500">Loading emails...</div>
+          <div className="loader-wrap">
+            <div className="mail-loader" aria-label="Loading emails">
+              <span className="sr-only">Loading emails</span>
+            </div>
+          </div>
         ) : emails.length === 0 ? (
           <div className="p-10 text-center">
+            <div className="empty-mail-icon" aria-hidden="true">
+              <div className="h-7 w-9 rounded border-2 border-slate-400 bg-white" />
+            </div>
             <p className="text-base font-semibold text-slate-900">No emails found</p>
             <p className="mt-1 text-sm text-slate-500">Send your first email to get started.</p>
           </div>

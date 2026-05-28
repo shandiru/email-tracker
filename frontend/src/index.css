@@ -132,4 +132,50 @@
   .status-pill {
     @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold;
   }
+
+  .loader-wrap {
+    @apply flex min-h-52 items-center justify-center;
+  }
+
+  .mail-loader {
+    @apply relative h-12 w-16 rounded-md border-2 border-slate-800 bg-white shadow-sm;
+    animation: mailFloat 1.3s ease-in-out infinite;
+  }
+
+  .mail-loader::before,
+  .mail-loader::after {
+    content: "";
+    position: absolute;
+    top: 13px;
+    width: 34px;
+    height: 2px;
+    background: #1e293b;
+  }
+
+  .mail-loader::before {
+    left: 0;
+    transform: rotate(31deg);
+    transform-origin: left center;
+  }
+
+  .mail-loader::after {
+    right: 0;
+    transform: rotate(-31deg);
+    transform-origin: right center;
+  }
+
+  .empty-mail-icon {
+    @apply mx-auto mb-4 flex h-14 w-16 items-center justify-center rounded-md border-2 border-slate-300 bg-slate-50;
+  }
+}
+
+@keyframes mailFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
