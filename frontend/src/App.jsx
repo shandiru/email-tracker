@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -10,9 +10,12 @@ import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import Compose from './pages/Compose';
 import Profile from './pages/Profile';
+import Admin from './pages/Admin';
 
 const AppRoutes = () => {
   const { user, loading } = useAuth();
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith('/admin');
 
   if (loading) {
     return (
@@ -26,8 +29,9 @@ const AppRoutes = () => {
 
   return (
     <>
-      {user && <Navbar />}
+      {user && !isAdminPage && <Navbar />}
       <Routes>
+        <Route path="/admin" element={<Admin />} />
         <Route
           path="/login"
           element={user ? <Navigate to="/dashboard" /> : <Login />}
