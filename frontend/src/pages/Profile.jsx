@@ -33,56 +33,64 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto py-8 px-4">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Profile Settings</h1>
+    <main className="app-shell">
+      <div className="mx-auto w-full max-w-2xl">
+        <div className="page-header">
+          <div>
+            <p className="eyebrow">SMTP setup</p>
+            <h1 className="page-title">Profile Settings</h1>
+            <p className="page-subtitle">Manage the sender account used for tracked emails.</p>
+          </div>
+        </div>
 
-      <div className="bg-white shadow rounded-lg p-6">
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-gray-900">Account</h2>
-          <p className="text-sm text-gray-500">{user?.email}</p>
+      <div className="panel">
+        <div className="panel-body">
+        <div className="mb-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500">Account</h2>
+          <p className="mt-1 text-base font-semibold text-slate-950">{user?.email}</p>
         </div>
 
         <form onSubmit={handleSubmit}>
           {message && (
-            <div className="mb-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+            <div className="alert-success mb-4">
               {message}
             </div>
           )}
           {error && (
-            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            <div className="alert-error mb-4">
               {error}
             </div>
           )}
 
-          <div className="space-y-4">
+          <div className="form-stack">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="field-label">
                 Sender Email (SMTP)
               </label>
               <input
                 type="email"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="input-field"
                 placeholder="your-email@gmail.com"
                 value={senderEmail}
                 onChange={(e) => setSenderEmail(e.target.value)}
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="field-help">
                 This email will be used to send your tracked emails
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="field-label">
                 App Passkey (SMTP Password)
               </label>
               <input
                 type="password"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="input-field"
                 placeholder="Enter your app password"
                 value={appPasskey}
                 onChange={(e) => setAppPasskey(e.target.value)}
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="field-help">
                 Generate an app password from your email provider settings
               </p>
             </div>
@@ -92,14 +100,16 @@ const Profile = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="btn-primary w-full"
             >
               {loading ? 'Saving...' : 'Save Settings'}
             </button>
           </div>
         </form>
+        </div>
       </div>
-    </div>
+      </div>
+    </main>
   );
 };
 

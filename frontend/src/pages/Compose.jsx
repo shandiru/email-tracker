@@ -38,25 +38,33 @@ const Compose = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto py-8 px-4">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Compose Email</h1>
+    <main className="app-shell">
+      <div className="mx-auto w-full max-w-3xl">
+        <div className="page-header">
+          <div>
+            <p className="eyebrow">New message</p>
+            <h1 className="page-title">Compose Email</h1>
+            <p className="page-subtitle">Send a tracked email with optional attachment.</p>
+          </div>
+        </div>
 
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="panel">
+        <div className="panel-body">
         {error && (
-          <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="alert-error mb-4">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="form-stack">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="field-label">
               To
             </label>
             <input
               type="email"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="input-field"
               placeholder="recipient@example.com"
               value={recipientEmail}
               onChange={(e) => setRecipientEmail(e.target.value)}
@@ -64,13 +72,13 @@ const Compose = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="field-label">
               Subject
             </label>
             <input
               type="text"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="input-field"
               placeholder="Email subject"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
@@ -78,13 +86,13 @@ const Compose = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="field-label">
               Body
             </label>
             <textarea
               required
               rows={10}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="textarea-field"
               placeholder="Write your email body here... (HTML supported)"
               value={body}
               onChange={(e) => setBody(e.target.value)}
@@ -92,35 +100,37 @@ const Compose = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="field-label">
               Attachment (optional)
             </label>
             <input
               type="file"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="input-field file:mr-4 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-slate-700 hover:file:bg-slate-200"
               onChange={(e) => setAttachment(e.target.files[0])}
             />
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row">
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="btn-primary flex-1"
             >
               {loading ? 'Sending...' : 'Send Email'}
             </button>
             <button
               type="button"
               onClick={() => navigate('/dashboard')}
-              className="flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="btn-secondary flex-1"
             >
               Cancel
             </button>
           </div>
         </form>
+        </div>
       </div>
-    </div>
+      </div>
+    </main>
   );
 };
 

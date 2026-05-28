@@ -25,24 +25,26 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
-      <div className="max-w-md w-full space-y-8">
+    <div className="auth-screen">
+      <div className="auth-card">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <div className="auth-brand">ET</div>
+          <p className="eyebrow text-center">Account recovery</p>
+          <h2 className="mt-2 text-center text-3xl font-bold text-slate-950">
             Reset your password
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-slate-500">
             Enter your email and we'll send you a reset link
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            <div className="alert-error">
               {error}
             </div>
           )}
           {message && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+            <div className="alert-success">
               {message}
             </div>
           )}
@@ -50,7 +52,7 @@ const ForgotPassword = () => {
             <input
               type="email"
               required
-              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+              className="input-field"
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -61,14 +63,14 @@ const ForgotPassword = () => {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="btn-primary w-full"
             >
               {loading ? 'Sending...' : 'Send reset link'}
             </button>
           </div>
 
           <div className="text-center">
-            <Link to="/login" className="text-sm text-blue-600 hover:text-blue-500">
+            <Link to="/login" className="link text-sm">
               Back to login
             </Link>
           </div>

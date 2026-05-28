@@ -26,28 +26,30 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
-      <div className="max-w-md w-full space-y-8">
+    <div className="auth-screen">
+      <div className="auth-card">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <div className="auth-brand">ET</div>
+          <p className="eyebrow text-center">Welcome back</p>
+          <h2 className="mt-2 text-center text-3xl font-bold text-slate-950">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">register a new account</Link>
+          <p className="mt-2 text-center text-sm text-slate-500">
+            Or <Link to="/register" className="link">register a new account</Link>
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            <div className="alert-error">
               {error}
             </div>
           )}
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="space-y-4">
             <div>
               <input
                 type="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="input-field"
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -57,7 +59,7 @@ const Login = () => {
               <input
                 type="password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="input-field"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -69,14 +71,14 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="btn-primary w-full"
             >
               {loading ? 'Signing in...' : 'Sign in'}
             </button>
           </div>
 
           <div className="text-center">
-            <Link to="/forgot-password" className="text-sm text-blue-600 hover:text-blue-500">
+            <Link to="/forgot-password" className="link text-sm">
               Forgot your password?
             </Link>
           </div>

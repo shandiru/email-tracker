@@ -28,89 +28,113 @@ const Dashboard = () => {
     return new Date(date).toLocaleString();
   };
 
+  const openedCount = emails.filter((email) => email.status === 'opened').length;
+  const totalOpens = emails.reduce((count, email) => count + (email.openCount || 0), 0);
+
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Email Dashboard</h1>
+    <main className="app-shell">
+      <div className="page-container">
+      <div className="page-header">
+        <div>
+          <p className="eyebrow">Tracking overview</p>
+          <h1 className="page-title">Email Dashboard</h1>
+          <p className="page-subtitle">Monitor sent emails, opens, and recipient activity.</p>
+        </div>
         <Link
           to="/compose"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          className="btn-primary w-full sm:w-auto"
         >
           Compose New Email
         </Link>
+      </div>
+
+      <div className="stat-grid">
+        <div className="stat-card">
+          <p className="stat-label">Sent emails</p>
+          <p className="stat-value">{emails.length}</p>
+        </div>
+        <div className="stat-card">
+          <p className="stat-label">Opened</p>
+          <p className="stat-value">{openedCount}</p>
+        </div>
+        <div className="stat-card">
+          <p className="stat-label">Total opens</p>
+          <p className="stat-value">{totalOpens}</p>
+        </div>
       </div>
 
       <div className="mb-4">
         <input
           type="text"
           placeholder="Search by recipient or subject..."
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          className="input-field"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
-      <div className="bg-white shadow rounded-lg overflow-hidden">
+      <div className="table-shell">
         {loading ? (
-          <div className="p-8 text-center text-gray-500">Loading...</div>
+          <div className="p-10 text-center text-sm font-medium text-slate-500">Loading emails...</div>
         ) : emails.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
-            No emails found. Send your first email to get started.
+          <div className="p-10 text-center">
+            <p className="text-base font-semibold text-slate-900">No emails found</p>
+            <p className="mt-1 text-sm text-slate-500">Send your first email to get started.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="bg-slate-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Recipient
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Subject
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Opens
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Sent
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Last Opened
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="divide-y divide-slate-100 bg-white">
                 {emails.map((email) => (
-                  <tr key={email._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <tr key={email._id} className="transition hover:bg-blue-50/50">
+                    <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-slate-900">
                       {email.recipientEmail}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="max-w-xs truncate whitespace-nowrap px-6 py-4 text-sm text-slate-700">
                       {email.subject}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="whitespace-nowrap px-6 py-4">
                       <span
-                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        className={`status-pill ${
                           email.status === 'opened'
-                            ? 'bg-green-100 text-green-800'
-                            : 'bg-gray-100 text-gray-800'
+                            ? 'bg-emerald-100 text-emerald-700'
+                            : 'bg-slate-100 text-slate-700'
                         }`}
                       >
                         {email.status === 'opened' ? 'Opened' : 'Sent'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
                       {email.openCount === 0
                         ? 'Not opened'
                         : `Opened ${email.openCount} time${email.openCount > 1 ? 's' : ''}`}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
                       {formatDate(email.sentAt)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
                       {formatDate(email.lastOpenedAt)}
                     </td>
                   </tr>
@@ -120,7 +144,8 @@ const Dashboard = () => {
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </main>
   );
 };
 
