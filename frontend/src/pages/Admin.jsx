@@ -73,7 +73,7 @@ const Admin = () => {
           <div>
             <div className="auth-brand brand-mail-icon" aria-hidden="true" />
             <p className="eyebrow text-center">Admin access</p>
-            <h1 className="mt-2 text-center text-3xl font-bold text-zinc-100">
+            <h1 className="mt-2 text-center text-3xl font-bold text-white">
               Admin Login
             </h1>
           </div>
@@ -160,33 +160,33 @@ const Admin = () => {
               <table className="min-w-full divide-y divide-slate-200">
                 <thead className="bg-zinc-950">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       User Email
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Sender Email
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Sent
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Opens
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Joined
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800 bg-zinc-900">
                   {users.map((user) => (
-                    <tr key={user.id} className="transition hover:bg-zinc-950">
-                      <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-zinc-100">
+                    <tr key={user.id} className="transition hover:bg-[#111c2e]">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-white">
                         {user.email}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-300">
                         {user.senderEmail || '-'}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
@@ -200,13 +200,13 @@ const Admin = () => {
                           {user.isVerified ? 'Verified' : 'Pending'}
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-300">
                         {user.sentCount}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-300">
                         {user.totalOpens}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-300">
                         {formatDate(user.createdAt)}
                       </td>
                     </tr>

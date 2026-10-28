@@ -52,7 +52,7 @@ const Profile = () => {
 
         <form onSubmit={handleSubmit} className="panel">
           <div className="border-b border-zinc-800 px-5 py-4 sm:px-6">
-            <h2 className="text-base font-semibold text-zinc-100">Account settings</h2>
+            <h2 className="text-base font-semibold text-white">Account settings</h2>
           </div>
 
           <div className="panel-body">
@@ -76,7 +76,7 @@ const Profile = () => {
                 <div className="form-control">
                 <input
                   type="email"
-                  className="input-field bg-zinc-950 text-zinc-400"
+                  className="input-field bg-zinc-950 text-slate-300"
                   value={user?.email || ''}
                   readOnly
                 />

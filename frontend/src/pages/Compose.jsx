@@ -104,7 +104,7 @@ const Compose = () => {
                 />
               </label>
               {attachment && (
-                <span className="ml-3 inline-block max-w-xs truncate align-middle text-sm text-zinc-400">
+                <span className="ml-3 inline-block max-w-xs truncate align-middle text-sm text-slate-300">
                   {attachment.name}
                 </span>
               )}

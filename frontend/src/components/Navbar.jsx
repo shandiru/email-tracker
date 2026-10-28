@@ -15,8 +15,8 @@ const Navbar = () => {
   const navClass = ({ isActive }) =>
     `rounded-md px-3 py-2 text-sm font-medium transition ${
       isActive
-        ? 'bg-slate-900 text-white'
-        : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100'
+        ? 'bg-blue-600 text-white'
+        : 'text-slate-300 hover:bg-zinc-800 hover:text-white'
     }`;
 
   return (
@@ -26,7 +26,7 @@ const Navbar = () => {
           <div className="flex flex-wrap items-center gap-5">
             <Link to="/dashboard" className="flex shrink-0 items-center gap-2">
               <span className="brand-mail-icon" aria-hidden="true" />
-              <span className="text-lg font-bold text-zinc-100">EmailTracker</span>
+              <span className="text-lg font-bold text-white">EmailTracker</span>
             </Link>
             <div className="flex items-center gap-2">
               <NavLink

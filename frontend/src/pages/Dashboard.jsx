@@ -98,7 +98,7 @@ const Dashboard = () => {
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-sm font-semibold text-zinc-100">Opened now</p>
+              <p className="text-sm font-semibold text-white">Opened now</p>
               <button
                 type="button"
                 className="toast-close"
@@ -108,13 +108,13 @@ const Dashboard = () => {
                 x
               </button>
             </div>
-            <p className="mt-1 truncate text-sm text-zinc-300">
+            <p className="mt-1 truncate text-sm text-slate-200">
               {notification.subject}
             </p>
-            <p className="mt-1 truncate text-xs text-zinc-400">
+            <p className="mt-1 truncate text-xs text-slate-300">
               {notification.recipient}
             </p>
-            <p className="mt-1 text-xs text-slate-400">
+            <p className="mt-1 text-xs text-slate-300">
               {notification.openCount} open{notification.openCount > 1 ? 's' : ''} - {formatDate(notification.openedAt)}
             </p>
           </div>
@@ -171,41 +171,41 @@ const Dashboard = () => {
               <div className="empty-mail-icon" aria-hidden="true">
                 <div className="h-7 w-9 rounded border-2 border-slate-400 bg-zinc-900" />
               </div>
-              <p className="text-base font-semibold text-zinc-100">No emails found</p>
-              <p className="mt-1 text-sm text-zinc-400">Send your first email to get started.</p>
+              <p className="text-base font-semibold text-white">No emails found</p>
+              <p className="mt-1 text-sm text-slate-300">Send your first email to get started.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-zinc-800">
                 <thead className="bg-zinc-950">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Recipient
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Subject
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Opens
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Sent
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Last Opened
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800 bg-zinc-900">
                   {emails.map((email) => (
-                    <tr key={email._id} className="transition hover:bg-zinc-950">
-                      <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-zinc-100">
+                    <tr key={email._id} className="transition hover:bg-[#111c2e]">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-white">
                         {email.recipientEmail}
                       </td>
-                      <td className="max-w-xs truncate whitespace-nowrap px-6 py-4 text-sm text-zinc-300">
+                      <td className="max-w-xs truncate whitespace-nowrap px-6 py-4 text-sm text-slate-200">
                         {email.subject}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
@@ -213,21 +213,21 @@ const Dashboard = () => {
                           className={`status-pill ${
                             email.status === 'opened'
                               ? 'bg-emerald-100 text-emerald-700'
-                              : 'bg-zinc-800 text-zinc-300'
+                              : 'bg-zinc-800 text-slate-200'
                           }`}
                         >
                           {email.status === 'opened' ? 'Opened' : 'Sent'}
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-300">
                         {email.openCount === 0
                           ? 'Not opened'
                           : `Opened ${email.openCount} time${email.openCount > 1 ? 's' : ''}`}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-300">
                         {formatDate(email.sentAt)}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-300">
                         {formatDate(email.lastOpenedAt)}
                       </td>
                     </tr>
