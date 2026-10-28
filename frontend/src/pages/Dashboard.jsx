@@ -5,6 +5,7 @@ import api from '../services/api';
 const Dashboard = () => {
   const [emails, setEmails] = useState([]);
   const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
   const [notification, setNotification] = useState(null);
   const openCountsRef = useRef({});
@@ -68,7 +69,7 @@ const Dashboard = () => {
 
   const fetchEmails = async ({ silent = false } = {}) => {
     try {
-      const response = await api.get(`/emails?search=${searchRef.current}`);
+      const response = await api.get(`/emails?search=${encodeURIComponent(searchRef.current)}`);
       const nextEmails = response.data.emails;
       detectNewOpens(nextEmails);
       setEmails(nextEmails);
@@ -88,6 +89,10 @@ const Dashboard = () => {
 
   const openedCount = emails.filter((email) => email.status === 'opened').length;
   const totalOpens = emails.reduce((count, email) => count + (email.openCount || 0), 0);
+  const openRate = emails.length ? Math.round((openedCount / emails.length) * 100) : 0;
+  const visibleEmails = emails.filter((email) => (
+    statusFilter === 'all' || (statusFilter === 'opened' ? email.status === 'opened' : email.status !== 'opened')
+  ));
 
   return (
     <main className="app-shell">
@@ -143,13 +148,17 @@ const Dashboard = () => {
             <p className="stat-label">Opened</p>
             <p className="stat-value">{openedCount}</p>
           </div>
-          <div className="stat-card border-l-4 border-l-slate-900">
+          <div className="stat-card border-l-4 border-l-blue-500">
+            <p className="stat-label">Open rate</p>
+            <p className="stat-value">{openRate}%</p>
+          </div>
+          <div className="stat-card">
             <p className="stat-label">Total opens</p>
             <p className="stat-value">{totalOpens}</p>
           </div>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <input
             type="text"
             placeholder="Search by recipient or subject..."
@@ -157,6 +166,23 @@ const Dashboard = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          <div className="flex shrink-0 items-center gap-1" role="group" aria-label="Filter emails by status">
+            {[
+              ['all', 'All'],
+              ['opened', 'Opened'],
+              ['unopened', 'Not opened']
+            ].map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                className="filter-button"
+                aria-pressed={statusFilter === value}
+                onClick={() => setStatusFilter(value)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="table-shell">
@@ -166,13 +192,17 @@ const Dashboard = () => {
                 <span className="sr-only">Loading emails</span>
               </div>
             </div>
-          ) : emails.length === 0 ? (
+          ) : visibleEmails.length === 0 ? (
             <div className="p-10 text-center">
               <div className="empty-mail-icon" aria-hidden="true">
                 <div className="h-7 w-9 rounded border-2 border-slate-400 bg-[#0b1220]" />
               </div>
-              <p className="text-base font-semibold text-white">No emails found</p>
-              <p className="mt-1 text-sm text-slate-300">Send your first email to get started.</p>
+              <p className="text-base font-semibold text-white">
+                {emails.length === 0 ? 'No emails found' : 'No emails match this filter'}
+              </p>
+              <p className="mt-1 text-sm text-slate-300">
+                {emails.length === 0 ? 'Send your first email to get started.' : 'Choose another status or search term.'}
+              </p>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -200,7 +230,7 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800 bg-[#0b1220]">
-                  {emails.map((email) => (
+                  {visibleEmails.map((email) => (
                     <tr key={email._id} className="transition hover:bg-[#111c2e]">
                       <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-white">
                         {email.recipientEmail}
@@ -212,8 +242,8 @@ const Dashboard = () => {
                         <span
                           className={`status-pill ${
                             email.status === 'opened'
-                              ? 'bg-emerald-100 text-emerald-700'
-                              : 'bg-[#111c2e] text-slate-200'
+                              ? 'border border-emerald-800 bg-emerald-950 text-emerald-300'
+                              : 'border border-slate-700 bg-[#111c2e] text-slate-200'
                           }`}
                         >
                           {email.status === 'opened' ? 'Opened' : 'Sent'}

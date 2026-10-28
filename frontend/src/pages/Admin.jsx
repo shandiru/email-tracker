@@ -194,8 +194,8 @@ const Admin = () => {
                         <span
                           className={`status-pill ${
                             user.isVerified
-                              ? 'bg-emerald-100 text-emerald-700'
-                              : 'bg-amber-100 text-amber-700'
+                              ? 'border border-emerald-800 bg-emerald-950 text-emerald-300'
+                              : 'border border-amber-800 bg-amber-950 text-amber-300'
                           }`}
                         >
                           {user.isVerified ? 'Verified' : 'Pending'}
