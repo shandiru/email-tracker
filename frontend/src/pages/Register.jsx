@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import BrandMark from '../components/BrandMark';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -50,7 +51,7 @@ const Register = () => {
     <div className="auth-screen">
       <div className="auth-card">
         <div>
-          <div className="auth-brand brand-mail-icon" aria-hidden="true" />
+          <BrandMark className="auth-brand" />
           <p className="eyebrow text-center">EmailTracker</p>
           <h2 className="mt-2 text-center text-3xl font-bold text-white">
             Create your account

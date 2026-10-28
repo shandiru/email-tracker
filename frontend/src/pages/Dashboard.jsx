@@ -169,15 +169,15 @@ const Dashboard = () => {
           ) : emails.length === 0 ? (
             <div className="p-10 text-center">
               <div className="empty-mail-icon" aria-hidden="true">
-                <div className="h-7 w-9 rounded border-2 border-slate-400 bg-zinc-900" />
+                <div className="h-7 w-9 rounded border-2 border-slate-400 bg-[#0b1220]" />
               </div>
               <p className="text-base font-semibold text-white">No emails found</p>
               <p className="mt-1 text-sm text-slate-300">Send your first email to get started.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-zinc-800">
-                <thead className="bg-zinc-950">
+              <table className="min-w-full divide-y divide-slate-800">
+                <thead className="bg-[#080e19]">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       Recipient
@@ -199,7 +199,7 @@ const Dashboard = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800 bg-zinc-900">
+                <tbody className="divide-y divide-slate-800 bg-[#0b1220]">
                   {emails.map((email) => (
                     <tr key={email._id} className="transition hover:bg-[#111c2e]">
                       <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-white">
@@ -213,7 +213,7 @@ const Dashboard = () => {
                           className={`status-pill ${
                             email.status === 'opened'
                               ? 'bg-emerald-100 text-emerald-700'
-                              : 'bg-zinc-800 text-slate-200'
+                              : 'bg-[#111c2e] text-slate-200'
                           }`}
                         >
                           {email.status === 'opened' ? 'Opened' : 'Sent'}

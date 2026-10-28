@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import BrandMark from '../components/BrandMark';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -36,7 +37,7 @@ const ForgotPassword = () => {
     <div className="auth-screen">
       <div className="auth-card">
         <div>
-          <div className="auth-brand brand-mail-icon" aria-hidden="true" />
+          <BrandMark className="auth-brand" />
           <p className="eyebrow text-center">Account security</p>
           <h2 className="mt-2 text-center text-3xl font-bold text-white">
             Reset your password

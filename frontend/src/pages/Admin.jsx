@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '../services/api';
+import BrandMark from '../components/BrandMark';
 
 const Admin = () => {
   const [username, setUsername] = useState('');
@@ -71,7 +72,7 @@ const Admin = () => {
       <div className="auth-screen">
         <div className="auth-card">
           <div>
-            <div className="auth-brand brand-mail-icon" aria-hidden="true" />
+            <BrandMark className="auth-brand" />
             <p className="eyebrow text-center">Admin access</p>
             <h1 className="mt-2 text-center text-3xl font-bold text-white">
               Admin Login
@@ -158,7 +159,7 @@ const Admin = () => {
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-slate-200">
-                <thead className="bg-zinc-950">
+                <thead className="bg-[#080e19]">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">
                       User Email
@@ -180,7 +181,7 @@ const Admin = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800 bg-zinc-900">
+                <tbody className="divide-y divide-slate-800 bg-[#0b1220]">
                   {users.map((user) => (
                     <tr key={user.id} className="transition hover:bg-[#111c2e]">
                       <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-white">

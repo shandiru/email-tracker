@@ -51,7 +51,7 @@ const Profile = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="panel">
-          <div className="border-b border-zinc-800 px-5 py-4 sm:px-6">
+          <div className="border-b border-slate-800 px-5 py-4 sm:px-6">
             <h2 className="text-base font-semibold text-white">Account settings</h2>
           </div>
 
@@ -76,7 +76,7 @@ const Profile = () => {
                 <div className="form-control">
                 <input
                   type="email"
-                  className="input-field bg-zinc-950 text-slate-300"
+                  className="input-field bg-[#080e19] text-slate-300"
                   value={user?.email || ''}
                   readOnly
                 />
@@ -112,7 +112,7 @@ const Profile = () => {
                     value={appPasskey}
                     onChange={(e) => setAppPasskey(e.target.value)}
                   />
-                  <div className="mt-4 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950">
+                  <div className="mt-4 overflow-hidden rounded-lg border border-slate-800 bg-[#080e19]">
                     <div className="aspect-video">
                       <iframe
                         className="h-full w-full"
@@ -127,7 +127,7 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="mt-6 flex justify-end border-t border-zinc-800 pt-5">
+            <div className="mt-6 flex justify-end border-t border-slate-800 pt-5">
               <button
                 type="submit"
                 disabled={loading}

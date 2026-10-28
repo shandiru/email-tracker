@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import BrandMark from '../components/BrandMark';
 import { useAuth } from '../context/AuthContext';
 
 const VerifyEmail = () => {
@@ -67,7 +68,7 @@ const VerifyEmail = () => {
     <div className="auth-screen">
       <div className="auth-card">
         <div>
-          <div className="auth-brand brand-mail-icon" aria-hidden="true" />
+          <BrandMark className="auth-brand" />
           <p className="eyebrow text-center">Email verification</p>
           <h2 className="mt-2 text-center text-3xl font-bold text-white">
             Verify your email

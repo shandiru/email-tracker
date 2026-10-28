@@ -1,5 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import BrandMark from './BrandMark';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -16,16 +17,16 @@ const Navbar = () => {
     `rounded-md px-3 py-2 text-sm font-medium transition ${
       isActive
         ? 'bg-blue-600 text-white'
-        : 'text-slate-300 hover:bg-zinc-800 hover:text-white'
+        : 'text-slate-300 hover:bg-[#111c2e] hover:text-white'
     }`;
 
   return (
-    <nav className="sticky top-0 z-20 border-b border-zinc-800 bg-zinc-900">
+    <nav className="sticky top-0 z-20 border-b border-slate-800 bg-[#080e19]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex min-h-16 flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:py-0">
           <div className="flex flex-wrap items-center gap-5">
             <Link to="/dashboard" className="flex shrink-0 items-center gap-2">
-              <span className="brand-mail-icon" aria-hidden="true" />
+              <BrandMark />
               <span className="text-lg font-bold text-white">EmailTracker</span>
             </Link>
             <div className="flex items-center gap-2">
