@@ -38,10 +38,10 @@ const ForgotPassword = () => {
         <div>
           <div className="auth-brand brand-mail-icon" aria-hidden="true" />
           <p className="eyebrow text-center">Account security</p>
-          <h2 className="mt-2 text-center text-3xl font-bold text-slate-950">
+          <h2 className="mt-2 text-center text-3xl font-bold text-zinc-100">
             Reset your password
           </h2>
-          <p className="mt-2 text-center text-sm text-slate-500">
+          <p className="mt-2 text-center text-sm text-zinc-400">
             Enter your email and we'll send you a reset OTP
           </p>
         </div>

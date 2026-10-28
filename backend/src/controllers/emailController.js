@@ -133,9 +133,10 @@ export const getEmails = async (req, res) => {
     const query = { userId: req.user.id };
 
     if (search) {
+      const safeSearch = search.slice(0, 100).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       query.$or = [
-        { recipientEmail: { $regex: search, $options: 'i' } },
-        { subject: { $regex: search, $options: 'i' } }
+        { recipientEmail: { $regex: safeSearch, $options: 'i' } },
+        { subject: { $regex: safeSearch, $options: 'i' } }
       ];
     }
 

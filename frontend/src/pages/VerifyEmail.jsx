@@ -69,10 +69,10 @@ const VerifyEmail = () => {
         <div>
           <div className="auth-brand brand-mail-icon" aria-hidden="true" />
           <p className="eyebrow text-center">Email verification</p>
-          <h2 className="mt-2 text-center text-3xl font-bold text-slate-950">
+          <h2 className="mt-2 text-center text-3xl font-bold text-zinc-100">
             Verify your email
           </h2>
-          <p className="mt-2 text-center text-sm text-slate-500">
+          <p className="mt-2 text-center text-sm text-zinc-400">
             Enter the OTP sent to your email address.
           </p>
         </div>

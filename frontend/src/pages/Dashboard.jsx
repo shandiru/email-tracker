@@ -98,7 +98,7 @@ const Dashboard = () => {
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-sm font-semibold text-slate-950">Opened now</p>
+              <p className="text-sm font-semibold text-zinc-100">Opened now</p>
               <button
                 type="button"
                 className="toast-close"
@@ -108,10 +108,10 @@ const Dashboard = () => {
                 x
               </button>
             </div>
-            <p className="mt-1 truncate text-sm text-slate-700">
+            <p className="mt-1 truncate text-sm text-zinc-300">
               {notification.subject}
             </p>
-            <p className="mt-1 truncate text-xs text-slate-500">
+            <p className="mt-1 truncate text-xs text-zinc-400">
               {notification.recipient}
             </p>
             <p className="mt-1 text-xs text-slate-400">
@@ -169,43 +169,43 @@ const Dashboard = () => {
           ) : emails.length === 0 ? (
             <div className="p-10 text-center">
               <div className="empty-mail-icon" aria-hidden="true">
-                <div className="h-7 w-9 rounded border-2 border-slate-400 bg-white" />
+                <div className="h-7 w-9 rounded border-2 border-slate-400 bg-zinc-900" />
               </div>
-              <p className="text-base font-semibold text-slate-900">No emails found</p>
-              <p className="mt-1 text-sm text-slate-500">Send your first email to get started.</p>
+              <p className="text-base font-semibold text-zinc-100">No emails found</p>
+              <p className="mt-1 text-sm text-zinc-400">Send your first email to get started.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-slate-50">
+              <table className="min-w-full divide-y divide-zinc-800">
+                <thead className="bg-zinc-950">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Recipient
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Subject
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Opens
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Sent
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Last Opened
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 bg-white">
+                <tbody className="divide-y divide-zinc-800 bg-zinc-900">
                   {emails.map((email) => (
-                    <tr key={email._id} className="transition hover:bg-slate-50">
-                      <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-slate-900">
+                    <tr key={email._id} className="transition hover:bg-zinc-950">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-zinc-100">
                         {email.recipientEmail}
                       </td>
-                      <td className="max-w-xs truncate whitespace-nowrap px-6 py-4 text-sm text-slate-700">
+                      <td className="max-w-xs truncate whitespace-nowrap px-6 py-4 text-sm text-zinc-300">
                         {email.subject}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
@@ -213,21 +213,21 @@ const Dashboard = () => {
                           className={`status-pill ${
                             email.status === 'opened'
                               ? 'bg-emerald-100 text-emerald-700'
-                              : 'bg-slate-100 text-slate-700'
+                              : 'bg-zinc-800 text-zinc-300'
                           }`}
                         >
                           {email.status === 'opened' ? 'Opened' : 'Sent'}
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
                         {email.openCount === 0
                           ? 'Not opened'
                           : `Opened ${email.openCount} time${email.openCount > 1 ? 's' : ''}`}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
                         {formatDate(email.sentAt)}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
                         {formatDate(email.lastOpenedAt)}
                       </td>
                     </tr>

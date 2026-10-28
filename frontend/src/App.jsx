@@ -19,7 +19,7 @@ const AppRoutes = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
         <div className="mail-loader" aria-label="Loading application">
           <span className="sr-only">Loading application</span>
         </div>

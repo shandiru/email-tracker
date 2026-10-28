@@ -14,7 +14,7 @@ const createTransporter = () => nodemailer.createTransport({
     }
   });
 
-const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
+const generateOtp = () => crypto.randomInt(100000, 1000000).toString();
 
 const hashOtp = (otp) => crypto.createHash('sha256').update(otp).digest('hex');
 

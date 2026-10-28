@@ -73,7 +73,7 @@ const Admin = () => {
           <div>
             <div className="auth-brand brand-mail-icon" aria-hidden="true" />
             <p className="eyebrow text-center">Admin access</p>
-            <h1 className="mt-2 text-center text-3xl font-bold text-slate-950">
+            <h1 className="mt-2 text-center text-3xl font-bold text-zinc-100">
               Admin Login
             </h1>
           </div>
@@ -129,7 +129,7 @@ const Admin = () => {
 
         {error && <div className="alert-error mb-4">{error}</div>}
 
-        <div className="stat-grid">
+        <div className="stat-grid lg:grid-cols-4">
           <div className="stat-card">
             <p className="stat-label">Users</p>
             <p className="stat-value">{summary?.totalUsers || 0}</p>
@@ -158,35 +158,35 @@ const Admin = () => {
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-slate-200">
-                <thead className="bg-slate-50">
+                <thead className="bg-zinc-950">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       User Email
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Sender Email
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Sent
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Opens
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-400">
                       Joined
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 bg-white">
+                <tbody className="divide-y divide-zinc-800 bg-zinc-900">
                   {users.map((user) => (
-                    <tr key={user.id} className="transition hover:bg-slate-50">
-                      <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-slate-900">
+                    <tr key={user.id} className="transition hover:bg-zinc-950">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-zinc-100">
                         {user.email}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
                         {user.senderEmail || '-'}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
@@ -200,13 +200,13 @@ const Admin = () => {
                           {user.isVerified ? 'Verified' : 'Pending'}
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
                         {user.sentCount}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
                         {user.totalOpens}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                      <td className="whitespace-nowrap px-6 py-4 text-sm text-zinc-400">
                         {formatDate(user.createdAt)}
                       </td>
                     </tr>

@@ -31,10 +31,10 @@ const Login = () => {
         <div>
           <div className="auth-brand brand-mail-icon" aria-hidden="true" />
           <p className="eyebrow text-center">EmailTracker</p>
-          <h2 className="mt-2 text-center text-3xl font-bold text-slate-950">
+          <h2 className="mt-2 text-center text-3xl font-bold text-zinc-100">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-slate-500">
+          <p className="mt-2 text-center text-sm text-zinc-400">
             Or <Link to="/register" className="link">register a new account</Link>
           </p>
         </div>
